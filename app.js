@@ -4,13 +4,14 @@ angular.module('todoApp').controller('todoController', function ($scope) {
     $scope.app = "todoApp";
 
     $scope.tasks = [
-        {name: "Market", day: "Thursday", hour: "13:00"},
-        {name: "Academy", day: "Wednesday", hour: "19:00"},
-        {name: "School", day: "Friday", hour: "08:00"}
+        {name: "Market", day: "Thursday", hour: "13:00", status:"Waiting"},
+        {name: "Academy", day: "Wednesday", hour: "19:00", status:"Waiting"},
+        {name: "School", day: "Friday", hour: "08:00", status:"Waiting"}
     ];
 
     $scope.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+    $scope.status = ["Waiting","Complete"];
 
     $scope.newTask = function(task){
         $scope.tasks.push(angular.copy(task));
@@ -25,7 +26,7 @@ angular.module('todoApp').controller('todoController', function ($scope) {
 
     $scope.selectAll = function(){
         $scope.tasks.forEach(function(task){
-            task.selections = true;
+            if (task.status==="Waiting") task.selections = true;
         });
     };
 
@@ -33,6 +34,11 @@ angular.module('todoApp').controller('todoController', function ($scope) {
       return tasks.some(function(task){
         return task.selections;
       });
+    };
+
+    $scope.finish = function(task){
+        task.status = "Complete";
+        $scope.completed = "btn btn-success";
     };
 
 });

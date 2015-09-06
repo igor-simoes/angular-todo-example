@@ -13,3 +13,7 @@
 .isSelect{
     background-color: rgb(249, 148, 148);
 }
+
+.completed{
+    background-color: rgb(38, 250, 140);
+}
