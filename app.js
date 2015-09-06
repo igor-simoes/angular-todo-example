@@ -9,9 +9,12 @@ angular.module('todoApp').controller('todoController', function ($scope) {
         {name: "School", day: "Friday", hour: "08:00"}
     ];
 
+    $scope.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+
     $scope.newTask = function(task){
         $scope.tasks.push(angular.copy(task));
-        delete task;
+        delete $scope.task;
     };
 
     $scope.removeTasks = function(){
@@ -19,4 +22,17 @@ angular.module('todoApp').controller('todoController', function ($scope) {
             if (!task.selections === true) return task;
         });
     };
+
+    $scope.selectAll = function(){
+        $scope.tasks.forEach(function(task){
+            task.selections = true;
+        });
+    };
+
+    $scope.isSelect = function(tasks){
+      return tasks.some(function(task){
+        return task.selections;
+      });
+    };
+
 });

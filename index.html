@@ -12,34 +12,43 @@
 
     <body ng-controller="todoController">
         <div class="jumbotron">
+            <!-- app name -->
             <h1>{{app}}</h1>
 
+            <!-- search input -->
+            <input ng-show="tasks.length > 0" type="text" class="form-control block" placeholder="Search Tasks" ng-model="filterTask"></input>
+
             <!-- table tasks -->
-            <table class="table table-bordered">
+            <table class="table table-bordered" ng-show="tasks.length > 0">
                 <thead>
-                    <th class="txtCenter">Select</th>
+                    <th class="txtCenter"><a ng-click="selectAll(task)">Select</a></th>
                     <th class="txtCenter">Name</th>
                     <th class="txtCenter">Day</th>
                     <th class="txtCenter">Hour</th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="task in tasks" ng-class="{isSelect : task.selections}">
+                    <tr ng-repeat="task in tasks | orderBy: 'name' | filter: {name: filterTask}" ng-class="{isSelect : task.selections}">
                         <td><input type="checkbox" ng-model="task.selections"></input></td>
                         <td>{{task.name}}</td>
                         <td>{{task.day}}</td>
                         <td>{{task.hour}}</td>
-                        <td>{{task.selections}}</td>
                     </tr>
                 </tbody>
             </table>
 
+            <h2>Add Task</h2>
             <!-- form tasks -->
             <form>
                 <input ng-model="task.name" placeholder="Task Name"></input>
-                <input ng-model="task.day" placeholder="Task Day"></input>
-                <input ng-model="task.hour" placeholder="Task Hour"></input>
-                <button class="btn btn-primary" ng-click="newTask(task)">Add Task</button>
-                <button class="btn btn-danger" ng-click="removeTasks()">Remove Tasks</button>
+
+                <select ng-model="task.day" ng-options="day for day in days">
+                    <option value="">Choose a day</option>
+                </select>
+
+                <input ng-model="task.hour" placeholder="Task Hour ex. 15:00" ng-pattern="/^([01][0-9]|2[0-3]):[0-5][0-9]$/"></input>
+                <button ng-disabled="!task.name || !task.day || !task.hour" class="btn btn-primary btn-block" ng-click="newTask(task)">Add Task</button>
+                <button class="btn btn-danger btn-block" ng-click="removeTasks()" ng-disabled="!isSelect(tasks)">Remove Tasks</button>
+                {{task.selections}}
             </form>
 
 
