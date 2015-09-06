@@ -11,6 +11,24 @@
     </head>
 
     <body ng-controller="todoController">
+        <div class="jumbotron">
+            <h1>{{app}}</h1>
 
+            <table class="table table-striped">
+                <thead>
+                    <th class="txtCenter">Name</th>
+                    <th class="txtCenter">Day</th>
+                    <th class="txtCenter">Hour</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="task in tasks">
+                        <td>{{task.name}}</td>
+                        <td>{{task.day}}</td>
+                        <td>{{task.hour}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
     </body>
 </html>
