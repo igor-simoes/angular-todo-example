@@ -8,3 +8,8 @@
 .txtCenter{
     text-align: center;
 }
+
+
+.isSelect{
+    background-color: rgb(249, 148, 148);
+}

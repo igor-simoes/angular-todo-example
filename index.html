@@ -14,20 +14,34 @@
         <div class="jumbotron">
             <h1>{{app}}</h1>
 
-            <table class="table table-striped">
+            <!-- table tasks -->
+            <table class="table table-bordered">
                 <thead>
+                    <th class="txtCenter">Select</th>
                     <th class="txtCenter">Name</th>
                     <th class="txtCenter">Day</th>
                     <th class="txtCenter">Hour</th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="task in tasks">
+                    <tr ng-repeat="task in tasks" ng-class="{isSelect : task.selections}">
+                        <td><input type="checkbox" ng-model="task.selections"></input></td>
                         <td>{{task.name}}</td>
                         <td>{{task.day}}</td>
                         <td>{{task.hour}}</td>
+                        <td>{{task.selections}}</td>
                     </tr>
                 </tbody>
             </table>
+
+            <!-- form tasks -->
+            <form>
+                <input ng-model="task.name" placeholder="Task Name"></input>
+                <input ng-model="task.day" placeholder="Task Day"></input>
+                <input ng-model="task.hour" placeholder="Task Hour"></input>
+                <button class="btn btn-primary" ng-click="newTask(task)">Add Task</button>
+                <button class="btn btn-danger" ng-click="removeTasks()">Remove Tasks</button>
+            </form>
+
 
         </div>
     </body>
